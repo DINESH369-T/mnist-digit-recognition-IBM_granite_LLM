@@ -1,5 +1,3 @@
-# AI Experiments: MNIST Digit Recognition 
-
 This repository contains experimental Jupyter Notebooks exploring foundational concepts in both Computer Vision (CV) and Natural Language Processing (NLP).
 
 
