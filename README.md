@@ -18,8 +18,25 @@ A feedforward neural network built with TensorFlow and Keras to classify graysca
   * **Categorical Crossentropy:** The loss function used to measure the error between predicted probability distributions and the true one-hot encoded labels.
 * **Evaluation & Prediction (`model.evaluate` & `np.argmax`):** Measures final test accuracy on unseen data and translates output probabilities back into readable digit predictions.
 
+---
+### 2. IBM Granite LLM Tokenization & Inference
+An implementation using the Hugging Face `transformers` library to load, tokenize, and prompt an instruction-tuned Large Language Model (**IBM Granite 3.1 2B Instruct**).
+
+#### 🔍 Step-by-Step Breakdown & Concepts Used:
+* **Library Imports (`transformers` & `torch`):** 
+  * Imports `AutoModelForCausalLM` and `AutoTokenizer` from Hugging Face, which provide standardized classes to easily download and interface with pre-built transformer models.
+  * Imports `PyTorch` (`torch`) as the underlying tensor and deep learning framework.
+* **Model Identification (`model_id`):** 
+  * Sets the model identifier string (`'ibm-granite/granite-3.1-2b-instruct'`), pointing directly to IBM's open-weights model hosted on Hugging Face. The `2b` denotes a lightweight 2-billion parameter model optimized for efficient edge and server deployment.
+* **Tokenizer Initialization (`AutoTokenizer.from_pretrained`):** 
+  * Loads the specific text tokenizer tied to the model. A tokenizer's job is to split raw human text into sub-words or tokens and convert them into numerical IDs that the neural network can process.
+* **Model Loading & Optimization (`AutoModelForCausalLM.from_pretrained`):** 
+  * Downloads and initializes the multi-layer transformer network. 
+  * **`torch_dtype=torch.float16` (FP16 Precision):** Loads model weights using 16-bit half-precision instead of standard 32-bit floating-point, reducing the memory (VRAM) footprint by half and accelerating computation.
+  * **`device_map='auto'`:** Automatically inspects available hardware (CPU vs. GPU) and maps the model layers to the optimal hardware device.
+* **Chat Structuring (`messages`):** 
+  * Organizes the input prompt using a standardized dictionary format (`'role': 'user'`, `'content': '...'`). This chat template structure is crucial for instruction-tuned models to accurately differentiate between system instructions, user questions, and model responses.
+---
 1. Download the `.ipynb` notebook file from this repository.
 2. Open it in [Google Colab](https://colab.research.google.com/).
 3. Run the cells sequentially from top to bottom.
-
-### 2. IBM Granite LLM Tokenization & Inference
